@@ -7,13 +7,70 @@
 //
 
 #import "HSYAppDelegate.h"
+#import "HSYDatabaseTools.h"
+#import <ReactiveObjC.h>
 
 @implementation HSYAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    //创建表list1
+    HSYDatabaseUnity *unity1 = [[HSYDatabaseUnity alloc] initWithName:@"name" andStateType:@"TEXT"];
+    HSYDatabaseUnity *unity2 = [[HSYDatabaseUnity alloc] initWithName:@"age" andStateType:@"TEXT"];
+    HSYDatabaseUnity *unity3 = [[HSYDatabaseUnity alloc] initWithName:@"nickname" andStateType:@"TEXT"];
+    HSYDatabaseUnity *unity4 = [[HSYDatabaseUnity alloc] initWithName:@"id" andStateType:@"TEXT"];
+    HSYDatabaseList *list = [[HSYDatabaseList alloc] initWithName:@"list1" databaseUnitys:@[unity1, unity2, unity3, unity4]];
+    [[HSYDatabaseTools shareInstance] hsy_configDatabase:@"Database" listsCreated:@[list]];
+    
+    //在表list1中插入一条数据
+//    HSYDatabaseUnity *unity5 = [[HSYDatabaseUnity alloc] initWithName:@"name" andStateType:@"TEXT" unityValue:@"赛斯4"];
+//    HSYDatabaseUnity *unity6 = [[HSYDatabaseUnity alloc] initWithName:@"age" andStateType:@"TEXT" unityValue:@"25"];
+//    HSYDatabaseUnity *unity7 = [[HSYDatabaseUnity alloc] initWithName:@"nickname" andStateType:@"TEXT" unityValue:@"弑君者4"];
+//    HSYDatabaseUnity *unity8 = [[HSYDatabaseUnity alloc] initWithName:@"id" andStateType:@"TEXT" unityValue:@"53756561278"];
+//    HSYDatabaseList *list1 = [[HSYDatabaseList alloc] initWithName:@"list1" updateUnitys:@[unity5, unity6, unity7, unity8]];
+//    [[[HSYDatabaseTools shareInstance].database hsy_insertDatas:@[list1]] subscribeNext:^(NSNumber * _Nullable x) {
+//        NSLog(@"插入结果: %@", x);
+//        [self.class query:unity7];
+//    }];
+
+    [self.class delete];
     return YES;
+}
+
++ (void)query:(HSYDatabaseUnity *)unity7
+{
+    //在表list1中搜索所有数据
+    HSYDatabaseList *list2 = [[HSYDatabaseList alloc] initWithName:@"list1" unityNames:@[@"name", @"age", @"nickname", @"id"]];
+    [[[HSYDatabaseTools shareInstance].database hsy_queryAllDatas:list2] subscribeNext:^(NSMutableArray<NSDictionary *> * _Nullable x) {
+        NSLog(@"查询整张表的结果: %@", x);
+        //在表list1中搜索name=hate的数据
+        HSYDatabaseUnity *unity9 = unity7;
+        HSYDatabaseList *list3 = [[HSYDatabaseList alloc] initWithName:@"list1" unityNames:@[@"name", @"age", @"nickname", @"id"] queryUnity:unity9];
+        [[[HSYDatabaseTools shareInstance].database hsy_queryDatas:list3] subscribeNext:^(NSMutableArray<NSDictionary *> * _Nullable x) {
+            NSLog(@"查询结果: %@", x);
+            [self.class modify:unity9];
+        }];
+    }];
+}
+
++ (void)modify:(HSYDatabaseUnity *)unity7
+{
+    HSYDatabaseUnity *unity10 = [[HSYDatabaseUnity alloc] initWithName:@"name" andStateType:@"TEXT" unityValue:@"大锤锤死你"];
+    HSYDatabaseList *list4 = [[HSYDatabaseList alloc] initWithName:@"list1" modifyUnitys:@[@{unity7 : unity10}]];
+    [[[HSYDatabaseTools shareInstance].database hsy_modifyData:list4] subscribeNext:^(NSNumber * _Nullable x) {
+        NSLog(@"修改结果: %@", x);
+        [self.class delete];
+    }];
+}
+
++ (void)delete
+{
+    HSYDatabaseUnity *unity11 = [[HSYDatabaseUnity alloc] initWithName:@"name" andStateType:@"TEXT" unityValue:@"大锤锤死你"];
+    HSYDatabaseList *list5 = [[HSYDatabaseList alloc] initWithName:@"list1" updateUnitys:@[unity11]];
+    [[[HSYDatabaseTools shareInstance].database hsy_deleteData:list5] subscribeNext:^(NSNumber * _Nullable x) {
+        NSLog(@"删除结果: %@", x);
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

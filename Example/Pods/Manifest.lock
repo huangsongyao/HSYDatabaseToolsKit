@@ -1,0 +1,74 @@
+PODS:
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - HSYDatabaseToolsKit (0.1.0):
+    - FMDB
+    - HSYMacroKit
+    - HSYMethodsToolsKit
+    - JSONModel
+    - ReactiveObjC
+  - HSYMacroKit (0.1.4)
+  - HSYMethodsToolsKit (0.1.4):
+    - HSYMacroKit
+    - JSONModel
+    - Masonry
+    - ReactiveObjC
+    - SDWebImage
+  - JSONModel (1.8.0)
+  - Masonry (1.1.0)
+  - ReactiveObjC (3.1.1)
+  - SDWebImage (5.2.3):
+    - SDWebImage/Core (= 5.2.3)
+  - SDWebImage/Core (5.2.3)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - HSYDatabaseToolsKit (from `../`)
+  - HSYMacroKit (from `https://github.com/huangsongyao/HSYMacroKit.git`)
+  - HSYMethodsToolsKit (from `https://github.com/huangsongyao/HSYMethodsToolsKit.git`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FBSnapshotTestCase
+    - FMDB
+    - JSONModel
+    - Masonry
+    - ReactiveObjC
+    - SDWebImage
+
+EXTERNAL SOURCES:
+  HSYDatabaseToolsKit:
+    :path: "../"
+  HSYMacroKit:
+    :git: https://github.com/huangsongyao/HSYMacroKit.git
+  HSYMethodsToolsKit:
+    :git: https://github.com/huangsongyao/HSYMethodsToolsKit.git
+
+CHECKOUT OPTIONS:
+  HSYMacroKit:
+    :commit: 16c2690a2f4315f0ddf1417bb11db33ffb36ac8b
+    :git: https://github.com/huangsongyao/HSYMacroKit.git
+  HSYMethodsToolsKit:
+    :commit: 4a0572e56a5dad64b453d2ebf811fdf84e353e9f
+    :git: https://github.com/huangsongyao/HSYMethodsToolsKit.git
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  HSYDatabaseToolsKit: ad71ef4b6ac574e8043a0fec4a43838b27281fc9
+  HSYMacroKit: 382477fb48caa2919542868a73ccc473bb331997
+  HSYMethodsToolsKit: 3b8dc3eff4cd7be8df995f0bcd2c9ca998961382
+  JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+  SDWebImage: 46a7f73228f84ce80990c786e4372cf4db5875ce
+
+PODFILE CHECKSUM: a0bca78d587ca90a6988513667240af50805764d
+
+COCOAPODS: 1.7.5

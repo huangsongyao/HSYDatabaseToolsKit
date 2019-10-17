@@ -1,0 +1,6 @@
+framework module Pods_HSYDatabaseToolsKit_Example {
+  umbrella header "Pods-HSYDatabaseToolsKit_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

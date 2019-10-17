@@ -30,7 +30,7 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'HSYDatabaseToolsKit/Classes/**/*'
+  s.source_files = 'HSYDatabaseToolsKit/Classes/**/*.{h,m}'
   
   # s.resource_bundles = {
   #   'HSYDatabaseToolsKit' => ['HSYDatabaseToolsKit/Assets/*.png']
@@ -39,4 +39,10 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'FMDB'
+  s.dependency 'JSONModel'
+  s.dependency 'ReactiveObjC'
+  s.dependency 'HSYMacroKit'
+  s.dependency 'HSYMethodsToolsKit'
+  
 end

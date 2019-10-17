@@ -1,0 +1,39 @@
+{
+  "name": "HSYDatabaseToolsKit",
+  "version": "0.1.0",
+  "summary": "A short description of HSYDatabaseToolsKit.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/317398895@qq.com/HSYDatabaseToolsKit",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "317398895@qq.com": "317398895@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/317398895@qq.com/HSYDatabaseToolsKit.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "HSYDatabaseToolsKit/Classes/**/*.{h,m}",
+  "dependencies": {
+    "FMDB": [
+
+    ],
+    "JSONModel": [
+
+    ],
+    "ReactiveObjC": [
+
+    ],
+    "HSYMacroKit": [
+
+    ],
+    "HSYMethodsToolsKit": [
+
+    ]
+  }
+}
