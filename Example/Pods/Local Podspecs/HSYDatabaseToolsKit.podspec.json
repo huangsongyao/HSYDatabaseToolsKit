@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "summary": "A short description of HSYDatabaseToolsKit.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/317398895@qq.com/HSYDatabaseToolsKit",
+  "homepage": "https://github.com/huangsongyao/HSYDatabaseToolsKit",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "317398895@qq.com": "317398895@qq.com"
+    "317398895@qq.com": "huangsongyao"
   },
   "source": {
-    "git": "https://github.com/317398895@qq.com/HSYDatabaseToolsKit.git",
+    "git": "https://github.com/huangsongyao/HSYDatabaseToolsKit.git",
     "tag": "0.1.0"
   },
   "platforms": {
