@@ -35,6 +35,7 @@
 //    }];
 
     [self.class delete];
+    
     return YES;
 }
 
