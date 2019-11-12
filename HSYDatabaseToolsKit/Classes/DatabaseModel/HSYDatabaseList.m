@@ -147,4 +147,11 @@
     return queryAllListDatasSQLString;
 }
 
+- (NSString *)hsy_listCleanDatasSQLString
+{
+    NSString *listCleanDatasSQLString = [NSString stringWithFormat:@"DELETE FROM %@", self.listName];
+    NSLog(@"database operation --> clean list datas SQL code: %@", listCleanDatasSQLString);
+    return listCleanDatasSQLString;
+} 
+
 @end

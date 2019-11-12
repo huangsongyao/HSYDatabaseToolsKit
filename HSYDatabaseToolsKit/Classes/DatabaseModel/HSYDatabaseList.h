@@ -111,6 +111,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)hsy_queryAllListDatasSQLString;
 
+/**
+ 返回一个SQL的清除表数据的语句，清除表中所有的数据
+
+ @return 清除表数据的语句
+ */
+- (NSString *)hsy_listCleanDatasSQLString;
+
 @end
 
 NS_ASSUME_NONNULL_END

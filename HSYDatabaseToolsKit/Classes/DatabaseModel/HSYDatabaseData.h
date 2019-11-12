@@ -85,6 +85,23 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (RACSignal<NSMutableArray<NSDictionary *> *> *)hsy_queryAllDatas:(HSYDatabaseList *)list;
 
+#pragma mark - Clean
+
+/**
+ 清空整个数据库中所有的数据
+
+ @return RACSignal<RACTuple *> *
+ */
+- (RACSignal<RACTuple *> *)databaseClean;
+
+/**
+ 清空listName表中的所有数据
+
+ @param listName 表名
+ @return RACSignal<NSNumber *> *
+ */
+- (RACSignal<NSNumber *> *)listClean:(NSString *)listName;
+
 @end
 
 NS_ASSUME_NONNULL_END
