@@ -9,6 +9,7 @@
 #import <fmdb/FMDB.h>
 #import <HSYMacroKit/HSYPathMacro.h>
 #import <HSYMacroKit/HSYToolsMacro.h>
+#import <HSYMethodsToolsKit/RACSignal+Combined.h>
 #import "FMResultSet+Querys.h"
 
 typedef RACSignal<RACTuple *> *(^HSYDatabaseDataOperationBlock)(RACTuple *tuple);
@@ -210,6 +211,54 @@ typedef NS_ENUM(NSUInteger, kHSYDatabaseDataOperateState) {
 - (RACSignal<NSMutableArray<NSDictionary *> *> *)hsy_queryAllDatas:(HSYDatabaseList *)list
 {
     return [self hsy_queryDatas:list isQueryAllDatas:YES];
+}
+
+#pragma mark - Clean
+
+- (RACSignal<RACTuple *> *)databaseClean
+{
+    @weakify(self);
+    return [RACSignal hsy_signalSubscriber:^(id<RACSubscriber>  _Nonnull subscriber) {
+        @strongify(self);
+        NSMutableArray<RACSignal<NSNumber *> *> *zipSignals = [NSMutableArray arrayWithCapacity:self.lists.count];
+        for (HSYDatabaseList *thisList in self.lists) {
+            [zipSignals addObject:[self listClean:thisList.listName]];
+        }
+        [[[RACSignal hsy_zipSignals:zipSignals] deliverOn:[RACScheduler scheduler]] subscribeNext:^(RACTuple * _Nullable x) {
+            NSLog(@"zip signals -> result = %@", x);
+            [subscriber sendNext:x];
+            [subscriber sendCompleted];
+        }];
+    }];
+}
+
+- (RACSignal<NSNumber *> *)listClean:(NSString *)listName
+{
+    @weakify(self);
+    return [RACSignal hsy_signalSubscriber:^(id<RACSubscriber>  _Nonnull subscriber1) {
+        @strongify(self);
+        [self hsy_inDatabase:^RACSignal<RACTuple *> *(RACTuple *tuple) {
+            return [RACSignal hsy_signalSubscriber:^(id<RACSubscriber>  _Nonnull subscriber2) {
+                @strongify(self);
+                HSYDatabaseList *list = nil;
+                for (HSYDatabaseList *thisList in self.lists) {
+                    if ([thisList.listName isEqualToString:listName]) {
+                        list = thisList;
+                        break;
+                    }
+                }
+                FMDatabase *database = (FMDatabase *)tuple.first;
+                if (!list) {
+                    [RACSignal hsy_performSendSignal:subscriber2 forObject:RACTuplePack(@(YES), database)];
+                    NSLog(@"clean failure! -> 数据库未找到listName = %@ 的表数据，请检查!", listName);
+                    return;
+                }
+                BOOL clean = [database executeUpdateWithFormat:list.hsy_listCleanDatasSQLString];
+                [RACSignal hsy_performSendSignal:subscriber2 forObject:RACTuplePack(@(YES), database)];
+                [RACSignal hsy_performSendSignal:subscriber1 forObject:@(clean)];
+            }];
+        }];
+    }];
 }
 
 #pragma mark - Database Path
