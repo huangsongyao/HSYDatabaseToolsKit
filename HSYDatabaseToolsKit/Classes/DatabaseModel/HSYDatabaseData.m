@@ -110,27 +110,31 @@ typedef NS_ENUM(NSUInteger, kHSYDatabaseDataOperateState) {
                 BOOL transactionResult = YES;
                 if ([database open]) {
                     [database beginTransaction];
-                    NSString *operateString = @{@(kHSYDatabaseDataOperateStateInsert) : @"insert", @(kHSYDatabaseDataOperateStateDelete) : @"delete", @(kHSYDatabaseDataOperateStateModify) : @"modify"}[@(state)];
+                    NSString *operateString = @{@(kHSYDatabaseDataOperateStateInsert) : @"insert",
+                                                @(kHSYDatabaseDataOperateStateDelete) : @"delete",
+                                                @(kHSYDatabaseDataOperateStateModify) : @"modify"}[@(state)];
                     for (HSYDatabaseList *list in lists) {
-                        NSString *sqlString = nil;
-                        switch (state) {
-                            case kHSYDatabaseDataOperateStateInsert:
-                                sqlString = list.hsy_insertDatasSQLString;
-                                break;
-                            case kHSYDatabaseDataOperateStateDelete:
-                                sqlString = list.hsy_deleteDatasSQLString;
-                                break;
-                            case kHSYDatabaseDataOperateStateModify:
-                                sqlString = list.hsy_modifyDatasSQLString;
-                                break;
-                            default:
-                                break;
-                        }
-                        BOOL operateResult = [database executeUpdateWithFormat:sqlString, nil];
-                        if (!operateResult) { 
-                            NSLog(@"%@ data failure! -> list: [%@]", operateString, list);
-                            [database rollback];
-                            transactionResult = !transactionResult;
+                        if (list.updateUnitys.count) {
+                            NSString *sqlString = nil;
+                            switch (state) {
+                                case kHSYDatabaseDataOperateStateInsert:
+                                    sqlString = list.hsy_insertDatasSQLString;
+                                    break;
+                                case kHSYDatabaseDataOperateStateDelete:
+                                    sqlString = list.hsy_deleteDatasSQLString;
+                                    break;
+                                case kHSYDatabaseDataOperateStateModify:
+                                    sqlString = list.hsy_modifyDatasSQLString;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            BOOL operateResult = [database executeUpdateWithFormat:sqlString, nil];
+                            if (!operateResult) {
+                                NSLog(@"%@ data failure! -> list: [%@]", operateString, list);
+                                [database rollback];
+                                transactionResult = !transactionResult;
+                            }
                         }
                     }
                     if (transactionResult) {
