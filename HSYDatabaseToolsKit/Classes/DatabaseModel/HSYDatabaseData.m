@@ -200,6 +200,7 @@ typedef NS_ENUM(NSUInteger, kHSYDatabaseDataOperateState) {
                     NSDictionary *result = [resultSet hsy_dictionaryForDatabaseList:list];
                     [results addObject:result];
                 }
+                [resultSet close];
                 [RACSignal hsy_performSendSignal:subscriber2 forObject:RACTuplePack(@(YES), database)];
                 [RACSignal hsy_performSendSignal:subscriber1 forObject:results];
             }];
