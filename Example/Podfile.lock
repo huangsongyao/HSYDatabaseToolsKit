@@ -7,7 +7,7 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - HSYDatabaseToolsKit (0.1.1):
+  - HSYDatabaseToolsKit (0.1.2):
     - FMDB
     - HSYMacroKit
     - HSYMethodsToolsKit
@@ -61,7 +61,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  HSYDatabaseToolsKit: a1f72668ce898720ae0ce2b2becad299b66b82ee
+  HSYDatabaseToolsKit: dd38ef0a0be6a81e23ddbc5b073cbe759cb66df6
   HSYMacroKit: 382477fb48caa2919542868a73ccc473bb331997
   HSYMethodsToolsKit: 90d7c431a08a89b5d432515e113be28d42df6f74
   JSONModel: 02ab723958366a3fd27da57ea2af2113658762e9
