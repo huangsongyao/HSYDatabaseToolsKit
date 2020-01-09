@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return RACSignal<RACTuple *> *
  */
-- (RACSignal<RACTuple *> *)hsy_databaseClean;
+- (RACSignal<NSArray<RACTuple *> *> *)hsy_databaseClean;
 
 /**
  清空listName表中的所有数据

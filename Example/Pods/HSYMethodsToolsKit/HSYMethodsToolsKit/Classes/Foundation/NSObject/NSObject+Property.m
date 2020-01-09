@@ -13,17 +13,17 @@
 + (objc_AssociationPolicy)toObjcAssociationPolicy:(kHSYMethodsToolsKitObjcAssociationPolicy)associationPolicy
 {
     NSDictionary *policys = @{@(kHSYMethodsToolsKitObjcAssociationPolicyAssign) : @(OBJC_ASSOCIATION_ASSIGN),
-                              @(kHSYMethodsToolsKitObjcAssociationPolicyAssign) : @(OBJC_ASSOCIATION_RETAIN_NONATOMIC),
-                              @(kHSYMethodsToolsKitObjcAssociationPolicyAssign) : @(OBJC_ASSOCIATION_COPY_NONATOMIC),
-                              @(kHSYMethodsToolsKitObjcAssociationPolicyAssign) : @(OBJC_ASSOCIATION_RETAIN),
-                              @(kHSYMethodsToolsKitObjcAssociationPolicyAssign) : @(OBJC_ASSOCIATION_COPY), };
+                              @(kHSYMethodsToolsKitObjcAssociationPolicyNonatomicStrong) : @(OBJC_ASSOCIATION_RETAIN_NONATOMIC),
+                              @(kHSYMethodsToolsKitObjcAssociationPolicyNonatomicCopy) : @(OBJC_ASSOCIATION_COPY_NONATOMIC),
+                              @(kHSYMethodsToolsKitObjcAssociationPolicyAtomicStrong) : @(OBJC_ASSOCIATION_RETAIN),
+                              @(kHSYMethodsToolsKitObjcAssociationPolicyAtomicCopy) : @(OBJC_ASSOCIATION_COPY), };
     objc_AssociationPolicy objcAssociationPolicy = (objc_AssociationPolicy)[policys[@(associationPolicy)] integerValue];
     return objcAssociationPolicy;
 } 
 
 - (id)hsy_getPropertyForKey:(NSString *)key
 {
-    return objc_getAssociatedObject(self, key.UTF8String);
+    return objc_getAssociatedObject(self, CFBridgingRetain(key));
 }
 
 - (void)hsy_setProperty:(id)property
@@ -32,7 +32,7 @@
 {
     [self willChangeValueForKey:key];
     objc_AssociationPolicy objcAssociationPolicy = [self.class toObjcAssociationPolicy:associationPolicy];
-    objc_setAssociatedObject(self, key.UTF8String, property, objcAssociationPolicy); 
+    objc_setAssociatedObject(self, CFBridgingRetain(key), property, objcAssociationPolicy);
     [self didChangeValueForKey:key];
 }
 

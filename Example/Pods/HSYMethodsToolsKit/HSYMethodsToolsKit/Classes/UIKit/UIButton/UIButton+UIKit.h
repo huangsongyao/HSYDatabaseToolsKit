@@ -9,6 +9,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, kHSYMethodsToolsButtonImagePosition) {
+    
+    kHSYMethodsToolsButtonImagePositionLeft,
+    kHSYMethodsToolsButtonImagePositionRight,
+    kHSYMethodsToolsButtonImagePositionTop,
+    kHSYMethodsToolsButtonImagePositionBottom,
+    
+};
+
+@class RACSignal;
 @interface UIButton (UIKit)
 
 /**
@@ -18,6 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
  @return UIButton
  */
 + (instancetype)hsy_buttonWithAction:(void(^)(UIButton *button))action;
+
+/**
+ 快速创建，点击后阻断，通过RACSignal信号返回一个completed信号，来还原按钮的阻断状态
+
+ @param action action方法，通过RACSignal信号返回一个completed信号，来还原按钮的阻断状态
+ @return UIButton
+ */
++ (instancetype)hsy_buttonWithEnabledAction:(RACSignal *(^)(UIButton *button))action;
 
 /**
  设置title
@@ -60,6 +78,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param title title的富文本
  */
 - (void)hsy_setAttributedTitle:(NSAttributedString *)title;
+
+/**
+ 通过titleEdgeInsets和imageEdgeInsets来实现文字和图片的自由排列
+
+ @param position 图标锚点位置
+ @param spacing 图文间距
+ */
+- (void)hsy_setImagePosition:(kHSYMethodsToolsButtonImagePosition)position forSpacing:(CGFloat)spacing;
 
 @end
 

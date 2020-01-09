@@ -74,14 +74,34 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (RACSignal<NSError *> *)hsy_sendErrorSignal:(NSError *)error;
 
+/// 创建一个管道，延迟delays秒后来快速发送一个error冷信号
+/// @param error 错误信息
+/// @param delays RACSignal<NSError *> *
++ (RACSignal<NSError *> *)hsy_sendErrorSignal:(NSError *)error afterDelays:(NSTimeInterval)delays;
+
 #pragma mark - Performs
 
 /**
- 让RACSignal的信号立即执行
+ 让RACSignal的信号对象立即执行completed完成信号
 
  @return RACDisposable *
  */
 - (RACDisposable *)hsy_performCompletedSignal;
+
+/**
+ 创建一个RACSignal对象，并立即执行completed完成信号
+
+ @return RACSignal
+ */
++ (RACSignal *)hsy_sendCompletedSignal;
+
+/**
+ 创建一个RACSignal对象，延迟delays时间执行completed完成信号
+
+ @param delays 延迟执行的时间
+ @return RACSignal
+ */
++ (RACSignal *)hsy_sendCompletedSignal:(NSTimeInterval)delays;
 
 /**
  对RACSubscriber协议对象增加sendNext:之后执行sendCompleted

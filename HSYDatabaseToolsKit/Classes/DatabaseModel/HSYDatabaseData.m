@@ -220,7 +220,7 @@ typedef NS_ENUM(NSUInteger, kHSYDatabaseDataOperateState) {
 
 #pragma mark - Clean
 
-- (RACSignal<RACTuple *> *)hsy_databaseClean
+- (RACSignal<NSArray<RACTuple *> *> *)hsy_databaseClean
 {
     @weakify(self);
     return [RACSignal hsy_signalSubscriber:^(id<RACSubscriber>  _Nonnull subscriber) {
@@ -229,7 +229,7 @@ typedef NS_ENUM(NSUInteger, kHSYDatabaseDataOperateState) {
         for (HSYDatabaseList *thisList in self.lists) {
             [zipSignals addObject:[self hsy_listClean:thisList.listName]];
         }
-        [[[RACSignal hsy_zipSignals:zipSignals] deliverOn:[RACScheduler scheduler]] subscribeNext:^(RACTuple * _Nullable x) {
+        [[[RACSignal hsy_zipSignals:zipSignals] deliverOn:[RACScheduler scheduler]] subscribeNext:^(NSArray<RACTuple *> * _Nullable x) {
             NSLog(@"zip signals -> result = %@", x);
             [subscriber sendNext:x];
             [subscriber sendCompleted];
